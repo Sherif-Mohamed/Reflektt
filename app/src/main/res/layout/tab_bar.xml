@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    app:rv_framerate="15"
+    app:rv_color="#B0434343"
+    app:rv_rippleDuration="150"
+    app:rv_centered="true"
+    app:rv_type="rectangle">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+        <TextView
+            android:id="@+id/tab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layoutDirection="locale"
+            android:textColor="@color/colorPrimary"
+            android:gravity="bottom|center" />
+    </LinearLayout>
+</com.andexert.library.RippleView>

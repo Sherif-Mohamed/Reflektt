@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#dd681a</color>
+    <color name="colorPrimaryDark">#c45308</color>
+    <color name="colorAccent">#000</color>
+    <color name="highlight">#B2B2B2</color>
+
+    <!-- Screens background color-->
+    <color name="bg_screen1">#eeb38c</color>
+    <color name="bg_screen2">#8e569e</color>
+    <color name="bg_screen3">#0ba080</color>
+    <color name="bg_screen4">#e85045</color>
+
+    <array name="array_dot_active">
+        <item>#e7c9b4</item>
+        <item>#cb80e1</item>
+        <item>#0ed7ac</item>
+        <item>#ff8880</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>#c48963</item>
+        <item>#703e7e</item>
+        <item>#03896c</item>
+        <item>#c4362c</item>
+    </array>
+
+    <!---for Croperino -->
+    <color name="gray">#808080</color>
+    <color name="dark_gray">#373737</color>
+    <color name="white">#ffffff</color>
+    <color name="gray_variant">#ff565e6b</color>
+    <color name="dark_green">#006666</color>
+    <color name="green_variant">#2FBCA1</color>
+</resources>

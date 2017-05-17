@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/fragment_frame"
+    tools:context="com.reflektt.reflektt.HomeFragments.AddPost.AddPost_Phase1">
+
+    <com.google.android.cameraview.CameraView
+        android:id="@+id/camera_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:keepScreenOn="true"
+        app:aspectRatio="1:1"
+        app:autoFocus="true"
+        app:facing="front"
+        app:flash="off" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/flip_camera"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:padding="10dp"
+            android:tint="#fff"
+            app:srcCompat="@drawable/ic_switch_camera"
+            android:contentDescription="Camera Flip" />
+
+        <ImageView
+            android:id="@+id/select_photo"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="Photo select from Gallery"
+            android:padding="10dp"
+            android:tint="#fff"
+            android:src="@drawable/ic_photo_library" />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/take_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_camera_shot" />
+
+</RelativeLayout>

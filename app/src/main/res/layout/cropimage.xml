@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <view
+        android:id="@+id/image"
+        class="com.reflektt.reflektt.mikelau.croperino.CropImageView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/green_variant" />
+
+    <RelativeLayout
+        android:id="@+id/rl_main"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/dark_green"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/discard"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:padding="10dp"
+            android:tint="#fff"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/ic_close" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/rotateLeft"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/discard"
+            android:tint="#fff"
+            android:adjustViewBounds="true"
+            android:padding="15dp"
+            app:srcCompat="@drawable/ic_rotate_left" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/rotateRight"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_toEndOf="@+id/rotateLeft"
+            android:tint="#fff"
+            android:padding="15dp"
+            android:src="@drawable/ic_rotate_right" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/save"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:layout_toEndOf="@+id/rotateRight"
+            android:padding="10dp"
+            android:tint="#fff"
+            app:srcCompat="@drawable/ic_check" />
+
+    </RelativeLayout>
+</RelativeLayout>

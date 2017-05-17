@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "376698655062",
+    "project_id": "reflektt-156217"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376698655062:android:652bbf6a13f2acfa",
+        "android_client_info": {
+          "package_name": "com.reflektt.reflektt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376698655062-khrb3p8rj1ek08pms3fncjtcifan6kpq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reflektt.reflektt",
+            "certificate_hash": "205CDD72FAFCAAFEE434AD5A249957A0B017770E"
+          }
+        },
+        {
+          "client_id": "376698655062-sqv1emrte17t9e5675agm1k7tvkp7edb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkeeLfTPbp1fa1mqoK6HZ-LKm6S32csXE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
