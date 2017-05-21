@@ -73,7 +73,7 @@ public class AddPost_Phase1 extends Fragment {
             getBackgroundHandler().post(new Runnable() {
                 @Override
                 public void run() {
-                    File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Reflektt/Pictures",
+                    File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Reflektt/Pictures/",
                             BackgroundService.getService().getUser().getProperty("username")+"_" + System.currentTimeMillis() + ".jpg");
                     OutputStream os = null;
                     try {
@@ -117,7 +117,7 @@ public class AddPost_Phase1 extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_post, container, false);
         ButterKnife.bind(this, v);
         new CroperinoConfig(BackgroundService.getService().getUser().getProperty("username")+ "_" + System.currentTimeMillis() + ".jpg"
-                , "/Reflektt/Pictures",
+                , "/Reflektt/Pictures/",
                 Environment.getExternalStorageDirectory().getAbsolutePath());
 
         cameraView.addCallback(mCallback);
