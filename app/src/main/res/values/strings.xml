@@ -105,6 +105,7 @@
     <string name="profileQuery">Search "Profiles" by </string>
     <string name="productsQuery">Search "Products" by </string>
     <string name="no_match_for_query">No match for query</string>
+    <string name="invalid_char">There are invalid characters in username</string>
     <!--end of translation -->
 
 

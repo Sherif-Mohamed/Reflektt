@@ -1,8 +1,8 @@
 package com.reflektt.reflektt.HomeFragments;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -93,7 +93,13 @@ public class HomeFragment extends Fragment {
             public void onRefresh() {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.home_fragment,new HomeFragment()).commit();
-                mRefresh.setRefreshing(false);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRefresh.setRefreshing(false);
+                    }
+                },1500);
+
             }
         });
 
@@ -306,12 +312,12 @@ public class HomeFragment extends Fragment {
     }
 
     class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserVH>{
-        List<BackendlessUser> data;
+        LinkedList<BackendlessUser> data;
         LayoutInflater inflater;
 
         UsersAdapter(List<BackendlessUser> collection) {
-            data=collection;
-            inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            data= (LinkedList<BackendlessUser>) collection;
+            inflater = getLayoutInflater(null);
         }
         @Override
         public UserVH onCreateViewHolder(ViewGroup parent, int viewType) {

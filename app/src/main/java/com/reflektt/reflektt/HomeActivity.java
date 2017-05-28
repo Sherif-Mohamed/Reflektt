@@ -39,7 +39,7 @@ import java.util.Locale;
 public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
-    private ViewPager mPager;
+    public  ViewPager mPager;
     private SlidingTabLayout mTabs;
     private PagerAdapter pAdapter;
     @Override

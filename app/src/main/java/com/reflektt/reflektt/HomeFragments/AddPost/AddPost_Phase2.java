@@ -69,7 +69,7 @@ public class AddPost_Phase2 extends Fragment {
                 Posts post = new Posts();
                 post.setPostedUser(BackgroundService.getService().getUser());
                 post.setPost(postText.getText().toString());
-                post.setPictureName(selectedPath.substring(selectedPath.lastIndexOf('/')));
+                post.setPictureName(selectedPath.substring(selectedPath.lastIndexOf('/')+1));
 
 
                 Intent intent = new Intent(getContext(),BackgroundService.class);

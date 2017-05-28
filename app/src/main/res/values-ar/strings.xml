@@ -95,4 +95,5 @@
     <string name="saving_image">جاري حفظ الصورة</string>
     <string name="not_enough_space">لا يوجد مساحة كافية</string>
     <string name="no_match_for_query">لا يوجد نتائج</string>
+    <string name="invalid_char">يوجد حروف غير صالحة في اسم المستخدم</string>
 </resources>

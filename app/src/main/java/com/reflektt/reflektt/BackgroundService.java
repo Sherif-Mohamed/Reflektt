@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
@@ -17,10 +18,12 @@ import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.QueryOptions;
 import com.reflektt.reflektt.Tables.Posts;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -166,11 +169,13 @@ public class BackgroundService extends IntentService {
                         dos.writeBytes(lineEnd);
                         dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-                        /* Responses from the server (code and message)
-                        int serverResponseCode = conn.getResponseCode();
-                        String serverResponseMessage = conn.getResponseMessage();
+                        //Response from the server
+                        InputStream is = new BufferedInputStream(conn.getInputStream());
+                        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+                        String string = s.hasNext() ? s.next() : "";
+                        if(string.equals("fail"))
+                            Toast.makeText(getApplicationContext(),R.string.error,Toast.LENGTH_SHORT).show();
 
-                        Log.i("uploadFile", "HTTP Response is : "+serverResponseMessage + ": " + serverResponseCode);*/
 
                         //close the streams //
                         fileInputStream.close();

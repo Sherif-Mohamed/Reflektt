@@ -43,7 +43,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public ProductAdapter(Context c, List<Products> collection, Fragment callerFragment, int callerId) {
         context = c;
-        inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = LayoutInflater.from(context);
         data = collection;
         fragment = callerFragment;
         this.callerId = callerId;

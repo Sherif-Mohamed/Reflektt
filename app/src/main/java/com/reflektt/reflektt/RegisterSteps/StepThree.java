@@ -21,6 +21,8 @@ import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
 import com.reflektt.reflektt.R;
 
+import java.util.regex.Pattern;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -86,15 +88,19 @@ public class StepThree extends Fragment {
     }
 
     public BackendlessUser process(BackendlessUser user) {
-        if (isAvailable && isChecked) {
-            user.setProperty("username", username.getText().toString());
+        Pattern invalidCharacters = Pattern.compile("[A-Z ~#@*+%\\{}<>\"^]");
+        String result = username.getText().toString();
+        if (invalidCharacters.matcher(result).find())
+            Toast.makeText(getContext(),R.string.invalid_char,Toast.LENGTH_SHORT).show();
+        else if (isAvailable && isChecked) {
+            user.setProperty("username", result);
             return user;
-        } else {
-            if (!isAvailable)
-                Toast.makeText(getContext(), getString(R.string.existing_username), Toast.LENGTH_SHORT).show();
-            else if (!isChecked)
-                Toast.makeText(getContext(), getString(R.string.not_checked), Toast.LENGTH_SHORT).show();
-            return null;
         }
+        else if (!isAvailable)
+                Toast.makeText(getContext(), getString(R.string.existing_username), Toast.LENGTH_SHORT).show();
+        else if (!isChecked)
+            Toast.makeText(getContext(), getString(R.string.not_checked), Toast.LENGTH_SHORT).show();
+
+        return null;
     }
 }
