@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.reflektt.reflektt.BackgroundService;
@@ -71,17 +72,28 @@ public class AddPost_Phase2 extends Fragment {
                 post.setPost(postText.getText().toString());
                 post.setPictureName(selectedPath.substring(selectedPath.lastIndexOf('/')+1));
 
-
                 Intent intent = new Intent(getContext(),BackgroundService.class);
                 intent.setAction(Constants.ACTION_UPLOAD);
                 intent.putExtra("path",selectedPath);
+
                 getContext().startService(intent);
                 Backendless.Persistence.of(Posts.class).save(post, new AsyncCallback<Posts>() {
                     @Override
                     public void handleResponse(Posts response) {
-                        pDialog.dismiss();
                         BackgroundService.getService().add_post(response);
-                        ((HomeActivity)getActivity()).loadedPost();
+                        Backendless.Persistence.of(BackendlessUser.class).save(BackgroundService.getService().getUser(),
+                                new AsyncCallback<BackendlessUser>() {
+                                    @Override
+                                    public void handleResponse(BackendlessUser response) {
+                                        pDialog.dismiss();
+                                        ((HomeActivity) getActivity()).loadedPost();
+                                    }
+
+                                    @Override
+                                    public void handleFault(BackendlessFault fault) {
+
+                                    }
+                                });
                     }
 
                     @Override
