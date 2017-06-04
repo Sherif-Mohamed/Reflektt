@@ -46,16 +46,6 @@ public class AddPost_Phase1 extends Fragment {
     @BindView(R.id.take_photo)
     FloatingActionButton takePhoto;
     private Handler fileSaveHandler;
-
-    private Handler getBackgroundHandler() {
-        if (fileSaveHandler == null) {
-            HandlerThread thread = new HandlerThread("background");
-            thread.start();
-            fileSaveHandler = new Handler(thread.getLooper());
-        }
-        return fileSaveHandler;
-    }
-
     private CameraView.Callback mCallback = new CameraView.Callback() {
 
         @Override
@@ -101,6 +91,15 @@ public class AddPost_Phase1 extends Fragment {
 
     public AddPost_Phase1() {
         // Required empty public constructor
+    }
+
+    private Handler getBackgroundHandler() {
+        if (fileSaveHandler == null) {
+            HandlerThread thread = new HandlerThread("background");
+            thread.start();
+            fileSaveHandler = new Handler(thread.getLooper());
+        }
+        return fileSaveHandler;
     }
 
     @Override
@@ -188,7 +187,7 @@ public class AddPost_Phase1 extends Fragment {
                     b.putParcelable("pictureUri",uri);
                     fragment.setArguments(b);
                     ft.replace(R.id.fragment_frame,fragment);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     ft.commit();
                 }
                 default:

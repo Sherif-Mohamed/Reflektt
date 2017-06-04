@@ -41,13 +41,13 @@ public class ProductsFragment extends Fragment {
     ProgressBar loadProgress;
     @BindView(R.id.empty)
     TextView empty;
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
+    LayoutInflater inflater;
     private BackendlessCollection<Products> dataCollection;
     private List<Products> data;
     private boolean isDataSet = false;
     //for loading more data
     private boolean loading = true;
-    int pastVisiblesItems, visibleItemCount, totalItemCount;
-
     public ProductsFragment() {
         // Required empty public constructor
     }
@@ -56,6 +56,7 @@ public class ProductsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        this.inflater = inflater;
         View v = inflater.inflate(R.layout.fragment_products, container, false);
         ButterKnife.bind(this, v);
         final ProductAdapter[] adapter = new ProductAdapter[1];
@@ -91,7 +92,8 @@ public class ProductsFragment extends Fragment {
                     dataCollection = response;
                     loadProgress.setVisibility(View.GONE);
                     if (data.size() != 0) {
-                        adapter[0] = new ProductAdapter(getActivity(), data, ProductsFragment.this, id);
+                        adapter[0] = new ProductAdapter(ProductsFragment.this.inflater, data,
+                                ProductsFragment.this, id, getActivity());
                         recyclerView.setAdapter(adapter[0]);
                     } else empty.setVisibility(View.VISIBLE);
 
@@ -140,7 +142,7 @@ public class ProductsFragment extends Fragment {
                 }
             });
         } else {
-            adapter[0] = new ProductAdapter(getActivity(), data, ProductsFragment.this, id);
+            adapter[0] = new ProductAdapter(this.inflater, data, ProductsFragment.this, id, getActivity());
             recyclerView.setAdapter(adapter[0]);
             loadProgress.setVisibility(View.GONE);
         }

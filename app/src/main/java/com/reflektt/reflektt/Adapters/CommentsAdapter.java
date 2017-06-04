@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Shiko on 07/03/2017.
+ * Created by Sherif on March,7th
  */
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentsVH> {
@@ -34,9 +34,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     private Fragment callerFragment;
     private List<Comments> comments;
 
-    public CommentsAdapter(Context context, List<Comments> comments, Fragment f, int id){
+    public CommentsAdapter(LayoutInflater inflater, Context context, List<Comments> comments, Fragment f, int id) {
         c = context;
-        inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.inflater = inflater;
         callerId = id;
         callerFragment = f;
         this.comments = comments;
@@ -44,8 +44,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     @Override
     public CommentsVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.comment, parent, false);
-        CommentsVH viewHolder = new CommentsVH(view);
-        return viewHolder;
+        return new CommentsVH(view);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         return comments.size();
     }
 
-    public class CommentsVH extends RecyclerView.ViewHolder {
+    class CommentsVH extends RecyclerView.ViewHolder {
         @BindView(R.id.comment_profile)
         CircularImageView profilePic;
         @BindView(R.id.comment_name)
@@ -70,7 +69,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         @BindView(R.id.comment_text)
         TextView comment;
 
-        public CommentsVH(View itemView) {
+        CommentsVH(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             username.setOnClickListener(new View.OnClickListener() {

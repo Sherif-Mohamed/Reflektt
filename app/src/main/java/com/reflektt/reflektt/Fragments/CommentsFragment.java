@@ -111,7 +111,7 @@ public class CommentsFragment extends Fragment {
         LinearLayoutManager m = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         commentsRecycler.setHasFixedSize(true);
         commentsRecycler.setNestedScrollingEnabled(true);
-        adapter =new CommentsAdapter(getActivity(), data, this, getArguments().getInt("callerId"));
+        adapter = new CommentsAdapter(inflater, getActivity(), data, this, getArguments().getInt("callerId"));
         commentsRecycler.setAdapter(adapter);
         commentsRecycler.setLayoutManager(m);
         return v;

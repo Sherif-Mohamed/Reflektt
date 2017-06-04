@@ -44,7 +44,6 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class ItemFragment extends Fragment {
-    private Products product;
     @BindView(R.id.product_pic)ImageView productPicture;
     @BindView(R.id.photoLoad)ProgressBar photoProgress;
     @BindView(R.id.product_name)TextView productName;
@@ -60,11 +59,14 @@ public class ItemFragment extends Fragment {
     @BindView(R.id.addfav)View addFavorite;
     @BindView(R.id.addfav_image)ImageView addfavImage;
     @BindView(R.id.addfav_text)TextView addfavText;
+    LayoutInflater inflater;
+    private Products product;
     private CommentsAdapter adapter;
     private List<Comments> data;
     private boolean isFavorited = false;
     private int callerId;
     private boolean isRated=false;
+
     public ItemFragment() {
         // Required empty public constructor
     }
@@ -74,6 +76,7 @@ public class ItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        this.inflater = inflater;
         View v = inflater.inflate(R.layout.fragment_item, container, false);
         ButterKnife.bind(this, v);
         callerId = getArguments().getInt("callerId");
@@ -401,7 +404,7 @@ public class ItemFragment extends Fragment {
         LinearLayoutManager m = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         commentsRecycler.setHasFixedSize(true);
         commentsRecycler.setNestedScrollingEnabled(false);
-        adapter = new CommentsAdapter(getActivity(), data, this, getArguments().getInt("callerId"));
+        adapter = new CommentsAdapter(inflater, getActivity(), data, this, getArguments().getInt("callerId"));
         commentsRecycler.setAdapter(adapter);
         commentsRecycler.setLayoutManager(m);
 

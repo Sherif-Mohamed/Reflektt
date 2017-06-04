@@ -41,7 +41,7 @@ import static com.reflektt.reflektt.Adapters.ProductAdapter.VIEW_PROG;
 import static com.reflektt.reflektt.R.id.comments;
 
 /**
- * Created by Shiko on 05/03/2017.
+ * Created by Sherif on March,5th
  */
 
 public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -51,8 +51,8 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private Fragment callerFragment;
     private int callerId;
 
-    public PostsAdapter(Context c, List<Posts> collection, Fragment caller, int callerId) {
-        inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public PostsAdapter(LayoutInflater inflater, List<Posts> collection, Fragment caller, int callerId, Context c) {
+        this.inflater = inflater;
         data =new LinkedList<> (collection);
         context = c;
         callerFragment = caller;
@@ -71,7 +71,7 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder newHolder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder newHolder, int position) {
         if (newHolder instanceof PostsVH) {
             final PostsVH holder = (PostsVH) newHolder;
             Posts property = data.get(position);
@@ -122,7 +122,7 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Backendless.Data.of(Posts.class).loadRelations(data.get(position), relationProps, new AsyncCallback<Posts>() {
                 @Override
                 public void handleResponse(Posts response) {
-                    data.set(position,response);
+                    data.set(newHolder.getAdapterPosition(), response);
                 }
 
                 @Override

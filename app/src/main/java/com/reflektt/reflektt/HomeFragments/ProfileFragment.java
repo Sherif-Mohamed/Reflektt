@@ -1,7 +1,6 @@
 package com.reflektt.reflektt.HomeFragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -46,24 +45,38 @@ import butterknife.ButterKnife;
 
 public class ProfileFragment extends Fragment {
 
-    @BindView(R.id.name)TextView name;
-    @BindView(R.id.username)TextView userName;
-    @BindView(R.id.bio)TextView biography;
-    @BindView(R.id.favourites)TextView favourites;
-    @BindView(R.id.following)TextView following;
-    @BindView(R.id.followers)TextView followers;
-    @BindView(R.id.follow_button)Button followButton;
-    @BindView(R.id.followers_view)View followers_menu;
-    @BindView(R.id.following_view)View following_menu;
-    @BindView(R.id.profile_pic)CircularImageView profilePic;
-    @BindView(R.id.favorites_menu)View favorites_menu;
-    @BindView(R.id.profile_grid)RecyclerView profile_grid;
-    @BindView(R.id.privacy)TextView privacyText;
-    @BindView(R.id.refresh_profile)SwipeRefreshLayout mRefresh;
-
+    public static String id = Backendless.UserService.loggedInUser();
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.username)
+    TextView userName;
+    @BindView(R.id.bio)
+    TextView biography;
+    @BindView(R.id.favourites)
+    TextView favourites;
+    @BindView(R.id.following)
+    TextView following;
+    @BindView(R.id.followers)
+    TextView followers;
+    @BindView(R.id.follow_button)
+    Button followButton;
+    @BindView(R.id.followers_view)
+    View followers_menu;
+    @BindView(R.id.following_view)
+    View following_menu;
+    @BindView(R.id.profile_pic)
+    CircularImageView profilePic;
+    @BindView(R.id.favorites_menu)
+    View favorites_menu;
+    @BindView(R.id.profile_grid)
+    RecyclerView profile_grid;
+    @BindView(R.id.privacy)
+    TextView privacyText;
+    @BindView(R.id.refresh_profile)
+    SwipeRefreshLayout mRefresh;
+    LayoutInflater inflater;
     private boolean isFollowed = false;
     private BackendlessUser openedUser;
-    public static String id = Backendless.UserService.loggedInUser();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -73,6 +86,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        this.inflater = inflater;
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, v);
         //openedUser = new BackendlessUser();
@@ -80,16 +94,16 @@ public class ProfileFragment extends Fragment {
         if (id.equals(Backendless.UserService.loggedInUser())) {
             followButton.setEnabled(false);
         }
-        mRefresh.setColorSchemeResources(android.R.color.holo_red_light,android.R.color.holo_green_light,android.R.color.holo_blue_light,android.R.color.holo_orange_light);
+        mRefresh.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_blue_light, android.R.color.holo_orange_light);
         mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ProfileFragment f = new ProfileFragment();
                 Bundle b = new Bundle();
-                b.putString("id",id);
+                b.putString("id", id);
                 f.setArguments(b);
-                ft.replace(R.id.profile_fragment,f).commit();
+                ft.replace(R.id.profile_fragment, f).commit();
                 mRefresh.setRefreshing(false);
             }
         });
@@ -106,25 +120,24 @@ public class ProfileFragment extends Fragment {
                     public void run() {
                         boolean isDone;
                         if (isFollowed)
-                            isDone=BackgroundService.getService().unfollow(openedUser.getObjectId());
+                            isDone = BackgroundService.getService().unfollow(openedUser.getObjectId());
                         else
-                            isDone=BackgroundService.getService().follow(openedUser.getObjectId());
+                            isDone = BackgroundService.getService().follow(openedUser.getObjectId());
 
-                        if (isDone){
+                        if (isDone) {
                             mRefresh.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                                     ProfileFragment f = new ProfileFragment();
                                     Bundle b = new Bundle();
-                                    b.putString("id",id);
+                                    b.putString("id", id);
                                     f.setArguments(b);
-                                    ft.replace(R.id.profile_fragment,f).commit();
+                                    ft.replace(R.id.profile_fragment, f).commit();
                                 }
                             });
-                        }
-
-                        else Toast.makeText(getContext(),R.string.error,Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(getContext(), R.string.error, Toast.LENGTH_SHORT).show();
                     }
                 }).start();
 
@@ -207,8 +220,8 @@ public class ProfileFragment extends Fragment {
             queryOptions.addRelated("posts");
 
             queryOptions.addRelated("favorite_items");
-            query.setQueryOptions( queryOptions );
-            query.setWhereClause(String.format("objectId='%s'",id));
+            query.setQueryOptions(queryOptions);
+            query.setWhereClause(String.format("objectId='%s'", id));
             Backendless.Persistence.of(BackendlessUser.class).find(query, new AsyncCallback<BackendlessCollection<BackendlessUser>>() {
                 @Override
                 public void handleResponse(BackendlessCollection<BackendlessUser> response) {
@@ -252,18 +265,17 @@ public class ProfileFragment extends Fragment {
                                 if (followedUser.getObjectId().equals(id) && !id.equals(Backendless.UserService.loggedInUser())) {
                                     followButton.setText(getResources().getString(R.string.unfollow));
                                     isFollowed = true;
-                                    profile_grid.setLayoutManager(new GridLayoutManager(getContext(), Constants.calculateNoOfColumns(getContext(),100)));
+                                    profile_grid.setLayoutManager(new GridLayoutManager(getContext(), Constants.calculateNoOfColumns(getContext(), 100)));
                                     profile_grid.setNestedScrollingEnabled(false);
                                     profile_grid.setAdapter(new SimpleAdapter());
                                     break;
                                 }
                             }
                             if (isPrivate) privacyText.setVisibility(View.VISIBLE);
-                        }
-                        else{
+                        } else {
                             if (isPrivate) privacyText.setVisibility(View.VISIBLE);
-                            else{
-                                profile_grid.setLayoutManager(new GridLayoutManager(getContext(), Constants.calculateNoOfColumns(getContext(),100)));
+                            else {
+                                profile_grid.setLayoutManager(new GridLayoutManager(getContext(), Constants.calculateNoOfColumns(getContext(), 100)));
                                 profile_grid.setNestedScrollingEnabled(false);
                                 profile_grid.setAdapter(new SimpleAdapter());
                             }
@@ -302,7 +314,7 @@ public class ProfileFragment extends Fragment {
             else
                 profilePic.setImageBitmap(BackgroundService.getService().getProfilePicture());
 
-            profile_grid.setLayoutManager(new GridLayoutManager(getContext(), Constants.calculateNoOfColumns(getContext(),100)));
+            profile_grid.setLayoutManager(new GridLayoutManager(getContext(), Constants.calculateNoOfColumns(getContext(), 100)));
             profile_grid.setNestedScrollingEnabled(false);
             profile_grid.setAdapter(new SimpleAdapter());
             name.setText((String) openedUser.getProperty("name"));
@@ -335,12 +347,10 @@ public class ProfileFragment extends Fragment {
 
     }
 
-     class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleVH> {
-        LayoutInflater inflater;
+    class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleVH> {
         Posts[] data;
 
         SimpleAdapter() {
-            inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             Object[] temp = (Object[]) openedUser.getProperty("posts");
             if (temp != null && temp.length != 0)
                 data = (Posts[]) temp;

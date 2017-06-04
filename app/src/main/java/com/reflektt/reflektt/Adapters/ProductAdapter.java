@@ -28,22 +28,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Shiko on 05/03/2017.
+ * Created by Sherif on March,5th
  */
 
 public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public static final int VIEW_PROG = 0;
+    //for adding infinite scrolling with progressBar
+    static final int VIEW_ITEM = 1;
     private LayoutInflater inflater;
     private List<Products> data;
     private Context context;
     private Fragment fragment;
     private int callerId;
-    //for adding infinite scrolling with progressBar
-    static final int VIEW_ITEM = 1;
-    public static final int VIEW_PROG = 0;
 
-    public ProductAdapter(Context c, List<Products> collection, Fragment callerFragment, int callerId) {
+    public ProductAdapter(LayoutInflater inflater, List<Products> collection, Fragment callerFragment, int callerId, Context c) {
         context = c;
-        inflater = LayoutInflater.from(context);
+        this.inflater = inflater;
         data = collection;
         fragment = callerFragment;
         this.callerId = callerId;
@@ -114,6 +114,13 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return data.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
+    static class ProgressVH extends RecyclerView.ViewHolder {
+
+        ProgressVH(View itemView) {
+            super(itemView);
+        }
+    }
+
      class ProductsVH extends RecyclerView.ViewHolder {
         @BindView(R.id.item_picture)
         ImageView productPicture;
@@ -149,12 +156,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
 
-        }
-    }
-    static class ProgressVH extends RecyclerView.ViewHolder{
-
-        ProgressVH(View itemView) {
-            super(itemView);
         }
     }
 }

@@ -36,12 +36,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Shiko on 11/03/2017.
+ * Created by Sherif on March,11th
  */
 
 public class PostFragment extends Fragment {
-
-    private Posts loadedPost = null;
 
     @BindView(R.id.profilePicture)
     CircularImageView profilePicture;
@@ -65,12 +63,15 @@ public class PostFragment extends Fragment {
     TextView likers;
     @BindView(R.id.commentsRecycler)
     RecyclerView commentsRecycler;
+    LayoutInflater inflater;
+    private Posts loadedPost = null;
     private int callerId;
     private boolean isLiked = false;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        this.inflater = inflater;
         View v = inflater.inflate(R.layout.post_item, container, false);
         ButterKnife.bind(this, v);
         callerId = getArguments().getInt("callerId");
@@ -274,7 +275,7 @@ public class PostFragment extends Fragment {
         LinearLayoutManager m = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         commentsRecycler.setHasFixedSize(true);
         commentsRecycler.setNestedScrollingEnabled(false);
-        CommentsAdapter adapter = new CommentsAdapter(getActivity(), data, this, getArguments().getInt("callerId"));
+        CommentsAdapter adapter = new CommentsAdapter(inflater, getActivity(), data, this, getArguments().getInt("callerId"));
         commentsRecycler.setAdapter(adapter);
         commentsRecycler.setLayoutManager(m);
 

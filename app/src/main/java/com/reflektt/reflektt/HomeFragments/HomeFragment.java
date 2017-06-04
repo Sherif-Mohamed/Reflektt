@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
     LinearLayoutManager postsManager;
     ProductAdapter productAdapter;
     PostsAdapter postsAdapter;
-
+    LayoutInflater inflater;
     //for infinite loading
     boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
@@ -83,6 +83,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+        this.inflater = inflater;
         productsManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         postsManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         ButterKnife.bind(this, v);
@@ -259,7 +260,7 @@ public class HomeFragment extends Fragment {
                             posts.add(m);
                         }
                     }
-                    postsAdapter = new PostsAdapter(getActivity(), posts, HomeFragment.this, R.id.home_fragment);
+                    postsAdapter = new PostsAdapter(inflater, posts, HomeFragment.this, R.id.home_fragment, getActivity());
                     postsData = response;
                     //send the followers data to adapter to load the posts
 
@@ -295,7 +296,7 @@ public class HomeFragment extends Fragment {
             public void handleResponse(BackendlessCollection<Products> response) {
                 data = response.getData();
                 productsData = response;
-                productAdapter = new ProductAdapter(getActivity(), data, HomeFragment.this, R.id.home_fragment);
+                productAdapter = new ProductAdapter(inflater, data, HomeFragment.this, R.id.home_fragment, getActivity());
                 productsRecycler.setAdapter(productAdapter);
                 productsRecycler.setLayoutManager(productsManager);
                 loadProducts.setVisibility(View.GONE);
@@ -313,11 +314,9 @@ public class HomeFragment extends Fragment {
 
     class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserVH>{
         LinkedList<BackendlessUser> data;
-        LayoutInflater inflater;
 
         UsersAdapter(List<BackendlessUser> collection) {
             data= (LinkedList<BackendlessUser>) collection;
-            inflater = getLayoutInflater(null);
         }
         @Override
         public UserVH onCreateViewHolder(ViewGroup parent, int viewType) {
